@@ -29,7 +29,7 @@ exports.fetchById =(req,res) => {
 exports.insert =(req,res) => {
     blog.create({
         title : req.body.title,
-        imagepath : req.body.imagepath,
+        imagepath : req.file.path,
         decription : req.body.decription,
         publisheddate : req.body.publisheddate,
         author : req.body.author
@@ -57,7 +57,7 @@ exports.delete =(req,res) => {
 
 exports.update =(req,res) => {
     blog.update({ title : req.body.title,
-        imagepath : req.body.imagepath,
+        imagepath : req.file.path,
         decription : req.body.decription,
         publisheddate : req.body.publisheddate,
         author : req.body.author
