@@ -1,9 +1,9 @@
 const  user  = require('../models/user');
 const bcrypt = require('bcrypt');
 
-exports.loginpage =(req,res) => { res.json({msg : "Welcome to login page"}) }
+exports.loginpage =(req,res) => { res.render('loginpage') }
 
-exports.signuppage = (req,res) => { res.json({msg : 'Welcome to signup page'})}
+exports.signuppage = (req,res) => { res.render('signuppage')}
 
 exports.login =async (req,res) => { 
     let userData = await user.findOne({
@@ -28,7 +28,13 @@ exports.login =async (req,res) => {
 }
 
 exports.signup =(req,res) => { 
-    const salt = bcrypt.genSaltSync(10);
+   if(req.body.password != req.body.confirm_password)
+   {
+       res.status(401).json({
+           msg : "Password doesn't match"
+       })
+   }
+   const salt = bcrypt.genSaltSync(10);
     const password = bcrypt.hashSync(req.body.password, salt);
 
     user.create({
