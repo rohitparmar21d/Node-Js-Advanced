@@ -29,27 +29,31 @@ exports.login =async (req,res) => {
 
 exports.signup =(req,res) => { 
    if(req.body.password != req.body.confirm_password)
-   {
-       res.status(401).json({
-           msg : "Password doesn't match"
-       })
+   {   const alert= [{ msg : "Password doesn't match" }];
+       res.render('signuppage',{ alert})
    }
-   const salt = bcrypt.genSaltSync(10);
-    const password = bcrypt.hashSync(req.body.password, salt);
+   else
+   {
+     const salt = bcrypt.genSaltSync(10);
+     const password = bcrypt.hashSync(req.body.password, salt);
 
-    user.create({
-        Name: req.body.name,
-        Email: req.body.email.toLowerCase(),
-        Mobile: req.body.mobile,
-        Password: password
-    }).then(() => {
-        res.json({
-            msg: "user insert successfully!!!"
-        });
-    }).catch((err) => {
-        if (err) {
-            res.json({ error: "insertion failed." });
-        }
-    });
+     user
+       .create({
+         Name: req.body.name,
+         Email: req.body.email.toLowerCase(),
+         Mobile: req.body.mobile,
+         Password: password,
+       })
+       .then(() => {
+         res.json({
+           msg: "user insert successfully!!!",
+         });
+       })
+       .catch((err) => {
+         if (err) {
+           res.json({ error: "insertion failed." });
+         }
+       });
+   }
    }
 

@@ -3,7 +3,9 @@ const { validationResult } = require('express-validator');
 exports.uservalidationResults = (req,res,next) => {
     const  errors = validationResult(req);
     if(!errors.isEmpty()){
-        res.status(422).jsonp(errors.array());
+        const alert = errors.array();
+        console.log(typeof alert)
+        res.render('signuppage', { alert })
     }
     else{
         next();

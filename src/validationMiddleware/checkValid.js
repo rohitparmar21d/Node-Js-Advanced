@@ -1,7 +1,7 @@
 const { check } = require('express-validator')
 
 exports.checkUserdata = [ 
-    check("name","Invalid name").isEmpty(),
+    check("name","Invalid name").exists().isLength( {min:3}),
     check("email" , "invalid Email").isEmail().normalizeEmail().isLength({min:3}),
     check("mobile").isLength({ min:10 , max:10}),
     check('password','password Must be 5 char long ').isLength({min:5})],
