@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require('../controllers/blogcontrollers');
 const upload =require('../src/helperMiddleware/fileupload');
 const { checkBlogdata  } = require('../src/validationMiddleware/checkValid');
