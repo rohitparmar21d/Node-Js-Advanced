@@ -6,6 +6,7 @@ const port = process.env.PORT;
 const blogRouter = require('./routes/blogroutes');
 const userRouter = require('./routes/userroute')
 const sequelize = require('./config/dbcofig');
+const cookieParser = require('cookie-parser');
 
 sequelize.sync().then(() => {
    console.log('Connected Successfully.......')
@@ -17,7 +18,7 @@ sequelize.sync().then(() => {
 app.use(express.static("public"))
 app.set('view engine', 'ejs');
 
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended :false}));
 
